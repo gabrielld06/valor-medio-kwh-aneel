@@ -115,6 +115,10 @@ export class AneelGateway {
         try {
             const acionamentos = await this._listarBandeirasTarifariasAcionamentos();
 
+            if (acionamentos.length === 0) {
+                throw new Error("Nenhum acionamento de bandeira tarifária encontrado.");
+            }
+
             await this.cache?.set(cacheKey, acionamentos);
 
             return acionamentos;
@@ -220,6 +224,10 @@ export class AneelGateway {
                 subClasse,
                 sigAgente,
             );
+
+            if (tarifas.length === 0) {
+                throw new Error("Nenhuma tarifa encontrada.");
+            }
 
             await this.cache?.set(cacheKey, tarifas);
 
